@@ -1,0 +1,13 @@
+fastapi
+uvicorn
+grpcio
+grpcio-tools
+networkx
+redis
+beautifulsoup4
+requests
+openai
+python-multipart
+faiss-cpu 
+numpy
+python-dotenv

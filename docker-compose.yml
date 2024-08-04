@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  api_server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: api_server
+    ports:
+      - "80:80"
+      - "50052:50051"  # Change the host port from 50051 to 50052
+    networks:
+      - metatwins_network
+    depends_on:
+      - redis
+
+  grpc_server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: python api/rpc_protocol.py
+    container_name: grpc_server
+    ports:
+      - "50051:50051"
+    networks:
+      - metatwins_network
+    volumes:
+      - ./data:/app/data
+
+  redis:
+    image: "redis:alpine"
+    container_name: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - metatwins_network
+
+networks:
+  metatwins_network:
+    driver: bridge

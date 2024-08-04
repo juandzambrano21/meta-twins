@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package agent;
+
+message TaskRequest {
+    string description = 1;
+    string input_data = 2;
+}
+
+message TaskResponse {
+    string status = 1;
+}
+
+service AgentService {
+    rpc ExecuteTask (TaskRequest) returns (TaskResponse);
+}
